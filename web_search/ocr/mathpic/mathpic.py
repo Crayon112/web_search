@@ -1,17 +1,16 @@
 # !usr/bin/env python
 # -*- encoding: utf-8 -*-
-"""Mathpic OCR 识别类
+"""Mathpic OCR 识别类.
 
 @File: mathpix.py
 @Time: 2022/07/13 09:04:25
 @Author: Crayon112
 @SoftWare: VSCode
-@Description: Mathpic OCR 识别类
+@Description: Mathpic OCR 识别类.
 
 """
 import base64
 import hashlib
-import json
 import time
 import uuid
 from urllib.parse import urlencode
@@ -23,10 +22,12 @@ from ..ocr import OCR
 
 
 class MathpicOCR(OCR):
+    """有道OCR接口类实现."""
 
     text_service = 'https://openapi.youdao.com/ocrapi'
 
     def __init__(self, app_key, app_secret):
+        """初始化."""
         self.app_key = app_key
         self.app_secret = app_secret
 
@@ -43,14 +44,15 @@ class MathpicOCR(OCR):
                 return s
             return s[:10] + str(len(s)) + s[-10:]
 
-        encrypt_str = self.app_key + _truncate(src) + salt + curtime + self.app_secret
+        encrypt_str = self.app_key + _truncate(src) + salt + \
+            curtime + self.app_secret
 
         _hash = hashlib.sha256()
         _hash.update(encrypt_str.encode('utf-8'))
         return _hash.hexdigest()
 
     def ocr(self, pic_bin=None, url=None, **kwargs) -> str:
-        """OCR识别
+        """OCR识别.
 
         Args:
             pic_bin (bytes, optional): 要识别的图片二进制
@@ -62,7 +64,7 @@ class MathpicOCR(OCR):
         if not (pic_bin or url):
             raise ValueError("pic_bin或url必须被提供")
 
-        src = self.image_uri(pic_bin) if pic_bin else url
+        src = self._image_uri(pic_bin) if pic_bin else url
 
         def _ocr(src):
             salt = str(uuid.uuid1())
@@ -81,7 +83,11 @@ class MathpicOCR(OCR):
                 "curtime": curtime,
             }
 
-            r = post(self.text_service, data=urlencode(args), headers=self.headers)
+            r = post(
+                self.text_service,
+                data=urlencode(args),
+                headers=self.headers,
+            )
 
             try:
                 data = r.read()
@@ -105,5 +111,5 @@ class MathpicOCR(OCR):
         res = _ocr(src)
         return "".join(res)
 
-    def image_uri(self, img_bin):
+    def _image_uri(self, img_bin):
         return "data:image/wmf;base64," + base64.b64encode(img_bin).decode()
