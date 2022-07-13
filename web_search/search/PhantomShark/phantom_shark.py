@@ -1,6 +1,6 @@
 # !usr/bin/env python
 # -*- encoding: utf-8 -*-
-"""幽灵鲨接口实现
+"""幽灵鲨接口实现.
 
 @File: phantom_shark.py
 @Time: 2022/07/12 22:09:24
@@ -17,6 +17,7 @@ from ..search_api import SearchAPI
 
 
 class PhantomShark(SearchAPI):
+    """幽鲨鱼接口实现."""
 
     _login_api = "http://47.99.236.231/api/login"
 
@@ -29,7 +30,7 @@ class PhantomShark(SearchAPI):
         self._is_login, data = self._login()
         if self._is_login:
             self._token = self._get_token_from_data(data)
-            self.add_auth_headers()
+            self._add_auth_headers()
 
     def _get_token_from_data(self, data):
         try:
@@ -37,7 +38,7 @@ class PhantomShark(SearchAPI):
         except Exception:
             return ''
 
-    def add_auth_headers(self):
+    def _add_auth_headers(self):
         self._headers.update({
             "Authorization": f"Bearer {self._token}",
         })
@@ -58,6 +59,7 @@ class PhantomShark(SearchAPI):
             return False, {}
 
     def search(self, keyword: str, **kwargs):
+        """搜索接口方法实现."""
         resp = get(self._search_api, params={"keyword": keyword}, headers=self._headers)
         try:
             data = resp.read()
