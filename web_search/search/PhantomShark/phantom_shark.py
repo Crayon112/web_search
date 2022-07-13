@@ -26,6 +26,7 @@ class PhantomShark(SearchAPI):
     _headers = HEADERS
 
     def __init__(self, user: User, **kwargs) -> None:
+        """初始化."""
         super().__init__(user, **kwargs)
         self._is_login, data = self._login()
         if self._is_login:
@@ -60,7 +61,11 @@ class PhantomShark(SearchAPI):
 
     def search(self, keyword: str, **kwargs):
         """搜索接口方法实现."""
-        resp = get(self._search_api, params={"keyword": keyword}, headers=self._headers)
+        resp = get(
+            self._search_api,
+            params={"keyword": keyword},
+            headers=self._headers
+        )
         try:
             data = resp.read()
             data = parse_resp_data(data)["data"]["data"]
