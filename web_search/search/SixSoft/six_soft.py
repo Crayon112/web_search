@@ -1,7 +1,6 @@
 # !usr/bin/env python
 # -*- encoding: utf-8 -*-
-"""
-六台阶接口实现
+"""六台阶接口实现.
 
 @File: six_soft.py
 @Time: 2022/07/12 22:21:34
@@ -20,9 +19,7 @@ from ..search_api import SearchAPI
 
 
 class SixSoft(SearchAPI):
-    """
-    六台阶接口实现
-    """
+    """六台阶接口实现."""
 
     _page_size = 20
 
@@ -36,7 +33,8 @@ class SixSoft(SearchAPI):
         "https://crm07.hrtl.com.cn/CRM3_211022145705_283945/AJAX/GetList.ashx"
 
     def __init__(self, user: User, **kwargs) -> None:
-        """
+        """初始化.
+
         Args:
             user {User}: 用户类
 
@@ -53,7 +51,7 @@ class SixSoft(SearchAPI):
 
     @property
     def _is_login(self) -> bool:
-        """登陆状态"""
+        """登陆状态."""
         self._add_referer_header()
         resp = post(
             self._login_api,
@@ -67,14 +65,14 @@ class SixSoft(SearchAPI):
         return int(resp.status) == 200
 
     def search(self, keyword, **kwargs):
-        """搜索接口实现"""
+        """搜索接口实现."""
         if not self._is_login:
             return False
         resp = post(
             self._search_api, data=urlencode({
                 'Cate': 'Get_List',
                 'FormName': 'Client_Contact',
-                'Search': \
+                'Search':
                     f'Search_KeyWord$:${keyword}$,'
                     '$Search_KeyWord_Cate$:$Blur$,'
                     '$Search_KeyWord_ColName$:$Name',
