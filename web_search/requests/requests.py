@@ -27,7 +27,9 @@ def get(url: str, headers: dict, params: dict or str = None) -> HTTPResponse:
     return resp
 
 
-def post(url: str, headers: dict, data: dict or bytes or str = None) -> HTTPResponse:
+def post(
+    url: str, headers: dict, data: dict or bytes or str = None,
+) -> HTTPResponse:
     """POST方法."""
     if isinstance(data, str):
         data = data.encode()
