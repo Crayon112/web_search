@@ -11,10 +11,11 @@
 """
 from http.client import HTTPResponse
 from urllib.parse import quote, urlencode
-from ..search_api import SearchAPI
+
 from ...globals import HEADERS
-from ...requests import post, parse_resp_data
+from ...requests import parse_resp_data, post
 from ...user import User
+from ..search_api import SearchAPI
 
 
 class SixSoft(SearchAPI):
@@ -61,8 +62,9 @@ class SixSoft(SearchAPI):
                 'FormName': 'Client_Contact',
                 'Search': f'Search_KeyWord$:${keyword}$,$Search_KeyWord_Cate$:$Blur$,$Search_KeyWord_ColName$:$Name',
                 'PageIndex': '1',
-                'PageSize': str(self._page_size)
-            }), headers=self._headers)
+                'PageSize': str(self._page_size),
+            }), headers=self._headers,
+        )
         data = resp.read()
         data = parse_resp_data(data)
         return bool(data["Data"])

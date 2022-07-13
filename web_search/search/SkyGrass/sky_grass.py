@@ -10,17 +10,15 @@
 
 """
 
-from http.client import HTTPResponse
-
-from ...globals import HEADERS
-from ..search_api import SearchAPI
-from ...user.user import User
-from urllib.parse import urlencode
 import datetime
 import os
-from ...requests import post, get, parse_resp_data
+from http.client import HTTPResponse
+from urllib.parse import urlencode
 
-
+from ...globals import HEADERS
+from ...requests import get, parse_resp_data, post
+from ...user.user import User
+from ..search_api import SearchAPI
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
@@ -52,7 +50,7 @@ class SkyGrass(SearchAPI):
             "pragma": "no-cache",
             "x-requested-with": "XMLHttpRequest",
             "Referer": self._referer_url,
-            "Referrer-Policy" : "strict-origin-when-cross-origin"
+            "Referrer-Policy" : "strict-origin-when-cross-origin",
         }
         self._headers = self._headers | extra_headers
 
@@ -71,11 +69,13 @@ class SkyGrass(SearchAPI):
             except AttributeError:
                 img_bin = b''
             captcha = self.ocr.ocr(pic_bin=img_bin)
-            resp = post(self._login_api, headers=self._headers,  data=urlencode({
+            resp = post(
+                self._login_api, headers=self._headers,  data=urlencode({
                     'username': self.user.username,
                     'password': self.user.password,
-                    'captcha' : captcha
-                }))
+                    'captcha' : captcha,
+                }),
+            )
             data = resp.read()
             resp_data = parse_resp_data(data)
             is_login = '成功' in resp_data

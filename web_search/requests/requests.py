@@ -10,10 +10,10 @@
 
 """
 
-from http.client import HTTPResponse
 import json
-from urllib.request import Request, urlopen
+from http.client import HTTPResponse
 from urllib.parse import urlencode
+from urllib.request import Request, urlopen
 
 
 def get(url: str, headers: dict, params: dict or str = None) -> HTTPResponse:

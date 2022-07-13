@@ -1,6 +1,6 @@
 import os
-import setuptools
 
+import setuptools
 
 with open("README.md", 'r', encoding="utf-8") as markdown_intro:
     long_description = markdown_intro.read()

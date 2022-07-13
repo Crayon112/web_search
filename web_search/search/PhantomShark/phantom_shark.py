@@ -10,10 +10,10 @@
 
 """
 
+from ...globals import HEADERS
+from ...requests import get, parse_resp_data, post
 from ...user import User
 from ..search_api import SearchAPI
-from ...requests import post, parse_resp_data, get
-from ...globals import HEADERS
 
 
 class PhantomShark(SearchAPI):
@@ -39,16 +39,18 @@ class PhantomShark(SearchAPI):
 
     def add_auth_headers(self):
         self._headers.update({
-            "Authorization": f"Bearer {self._token}"
+            "Authorization": f"Bearer {self._token}",
         })
 
     def _login(self):
-        resp = post(self._login_api, data={
-            "code": "",
-            "pwd": self.user.password,
-            "tenent_id": "1",
-            "username": self.user.username,
-        }, headers=self._headers)
+        resp = post(
+            self._login_api, data={
+                "code": "",
+                "pwd": self.user.password,
+                "tenent_id": "1",
+                "username": self.user.username,
+            }, headers=self._headers,
+        )
         try:
             data = resp.read()
             return int(resp.status) == 200, parse_resp_data(data)

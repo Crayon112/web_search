@@ -9,12 +9,12 @@
 @Description: Mathpic OCR 识别类
 
 """
+import base64
 import hashlib
 import json
-import base64
 import time
-from urllib.parse import urlencode
 import uuid
+from urllib.parse import urlencode
 
 from web_search.requests.utils import parse_resp_data
 
