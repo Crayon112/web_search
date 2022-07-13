@@ -1,6 +1,6 @@
 # !usr/bin/env python
 # -*- encoding: utf-8 -*-
-"""网络请求
+"""网络请求.
 
 @File: requests.py
 @Time: 2022/07/13 09:25:45
@@ -17,6 +17,7 @@ from urllib.request import Request, urlopen
 
 
 def get(url: str, headers: dict, params: dict or str = None) -> HTTPResponse:
+    """Get方法."""
     if not isinstance(params, str) and params is not None:
         params = urlencode(params)
     if params:
@@ -27,6 +28,7 @@ def get(url: str, headers: dict, params: dict or str = None) -> HTTPResponse:
 
 
 def post(url: str, headers: dict, data: dict or bytes or str = None) -> HTTPResponse:
+    """POST方法."""
     if isinstance(data, str):
         data = data.encode()
     elif isinstance(data, bytes):
