@@ -18,7 +18,6 @@ from ...user.user import User
 from urllib.parse import urlencode
 import datetime
 import os
-from ...ocr.mathpic import MathpicOCR
 from ...requests import post, get, parse_resp_data
 
 
@@ -42,8 +41,7 @@ class SkyGrass(SearchAPI):
         super().__init__(user, **kwargs)
         self._headers = HEADERS
         self.retry = 3
-        self.ocr = MathpicOCR(
-            app_key="4f5c10eef5d42553", app_secret="tyJAFJ3P7Vw8Fenq7spZlp3xkecWl3Eg")
+        self.ocr = kwargs.get('ocr', None)
 
     def _add_extra_headers(self):
         extra_headers= {
