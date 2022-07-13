@@ -11,8 +11,8 @@
 """
 
 import os
-import setuptools
 
+import setuptools
 
 with open("README.md", 'r', encoding="utf-8") as markdown_intro:
     long_description = markdown_intro.read()
@@ -33,9 +33,11 @@ setuptools.setup(
     url="https://github.com/Crayon112/web_search",
     test_suite="nose.collector",
     tests_require=["nose"],
-    packages=setuptools.find_packages(exclude=[
-        "test", "search/SkyGrass", "ocr"
-    ]),
+    packages=setuptools.find_packages(
+        exclude=[
+            "test", "search/SkyGrass", "ocr",
+        ],
+    ),
     package_dir={"web_search": "web_search"},
     include_package_data=True,
     python_requires='>=3.6',
