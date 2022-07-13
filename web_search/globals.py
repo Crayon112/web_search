@@ -1,6 +1,6 @@
 # !usr/bin/env python
 # -*- encoding: utf-8 -*-
-"""工具函数
+"""工具函数.
 
 @File: utils.py
 @Time: 2022/07/12 22:05:00

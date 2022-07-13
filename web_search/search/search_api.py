@@ -15,8 +15,10 @@ from ..user.user import User
 
 
 class SearchAPI(object):
+    """搜索基类."""
 
     def __init__(self, user: User, **kwargs) -> None:
+        """初始化."""
         self.user = user
         self.kwargs = kwargs
 
