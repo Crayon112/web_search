@@ -1,1 +1,1 @@
-from .six_soft import SixSoft
+from .six_soft import SixSoft  # noqa

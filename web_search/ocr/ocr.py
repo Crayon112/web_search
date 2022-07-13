@@ -12,6 +12,12 @@
 
 
 class OCR(object):
+    """OCR基类"""
 
-    def ocr(self, **kwargs):
+    def ocr(self, **kwargs) -> str:
+        """ocr接口方法
+
+        Returns:
+            {str}: 识别结果
+        """
         raise NotImplementedError

@@ -1,1 +1,1 @@
-from .phantom_shark import PhantomShark
+from .phantom_shark import PhantomShark  # noqa

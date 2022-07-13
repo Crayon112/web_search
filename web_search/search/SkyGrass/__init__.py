@@ -1,1 +1,1 @@
-from .sky_grass import SkyGrass
+from .sky_grass import SkyGrass  # noqa
