@@ -21,5 +21,5 @@ class SearchAPI(object):
         self.kwargs = kwargs
 
     def search(self, keyword, **kwargs) -> bool:
-        """精确匹配是否在数据库中"""
+        """精确匹配是否在数据库中."""
         raise NotImplementedError
