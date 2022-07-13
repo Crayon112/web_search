@@ -64,7 +64,7 @@ class PhantomShark(SearchAPI):
         resp = get(
             self._search_api,
             params={"keyword": keyword},
-            headers=self._headers
+            headers=self._headers,
         )
         try:
             data = resp.read()
