@@ -1,7 +1,7 @@
 # !usr/bin/env python
 # -*- encoding: utf-8 -*-
 
-"""搜索类基类
+"""搜索类基类.
 
 @File: search_api.py
 @Time: 2022/07/12 22:03:37
