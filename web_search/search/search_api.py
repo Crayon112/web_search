@@ -1,5 +1,6 @@
 # !usr/bin/env python
 # -*- encoding: utf-8 -*-
+
 """搜索类基类
 
 @File: search_api.py
