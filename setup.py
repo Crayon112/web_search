@@ -19,7 +19,7 @@ setuptools.setup(
     description="web search",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://e.gitee.com/xizi_ai/repos/xizi_ai/feishu_sdk/sources",
+    url="https://github.com/Crayon112/web_search",
     test_suite="nose.collector",
     tests_require=["nose"],
     packages=setuptools.find_packages(exclude=["test", "search/SkyGrass", "ocr"]),
@@ -39,6 +39,6 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ),
     project_urls={
-        "Source": "https://e.gitee.com/xizi_ai/repos/xizi_ai/feishu_sdk/sources",
+        "Source": "https://github.com/Crayon112/web_search",
     },
 )
