@@ -13,7 +13,9 @@ OCR识别基类
 
 
 class OCR(object):
-    """OCR基类"""
+    """
+    OCR基类
+    """
 
     def ocr(self, **kwargs) -> str:
         """

@@ -1,6 +1,7 @@
 # !usr/bin/env python
 # -*- encoding: utf-8 -*-
-"""OCR接口及实现
+"""
+OCR接口及实现
 
 @File: __init__.py
 @Time: 2022/07/13 15:56:12
