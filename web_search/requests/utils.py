@@ -9,6 +9,7 @@
 @Description: 工具函数
 
 """
+from io import BufferedReader
 import json
 from urllib.request import Request
 
@@ -20,8 +21,10 @@ def update_headers(req: Request, header: dict) -> Request:
     return req
 
 
-def parse_resp_data(resp_data: str or bytes) -> dict or str:
+def parse_resp_data(resp_data: str or bytes or BufferedReader) -> dict or str:
     """解析响应数据."""
+    if isinstance(resp_data, BufferedReader):
+        resp_data = resp_data.read()
     if isinstance(resp_data, bytes):
         resp_data = resp_data.decode()
     elif isinstance(resp_data, str):

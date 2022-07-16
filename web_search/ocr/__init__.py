@@ -12,3 +12,4 @@
 
 from .mathpic import MathpicOCR  # noqa
 from .ocr import OCR  # noqa
+from .local_ocr import LocalOCR  # noqa

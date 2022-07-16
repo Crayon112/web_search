@@ -130,3 +130,6 @@ dmypy.json
 
 # user
 .vscode/
+main.exe
+main.zip
+data/

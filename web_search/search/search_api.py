@@ -25,3 +25,6 @@ class SearchAPI(object):
     def search(self, keyword, **kwargs) -> bool:
         """精确匹配是否在数据库中."""
         raise NotImplementedError
+
+    def __repr__(self) -> str:
+        return self.__class__.__name__

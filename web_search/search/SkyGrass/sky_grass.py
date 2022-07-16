@@ -11,6 +11,7 @@
 """
 
 import datetime
+import json
 import os
 from http.client import HTTPResponse
 from urllib.parse import urlencode
@@ -38,21 +39,21 @@ class SkyGrass(SearchAPI):
     _referer_url = \
         "http://jmb1.tianheyunshang.com/admin/basesetting/weixinoperate"
 
+    _cached_headers = {}
+
     def __init__(self, user: User, **kwargs) -> None:
         """初始化过程."""
         super().__init__(user, **kwargs)
         self._headers = HEADERS
-        self.retry = 3
+        self.retry = 10
         self.ocr = kwargs.get('ocr', None)
 
     def _add_extra_headers(self):
         extra_headers = {
-            "accept": "application/json, text/javascript, */*; q=0.01",
-            "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
-            "cache-control": "no-cache",
-            "content-type": "application/json",
-            "pragma": "no-cache",
-            "x-requested-with": "XMLHttpRequest",
+            "Accept": "application/json, text/javascript, */*; q=0.01",
+            "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+            "Content-Type": "application/json",
+            "X-Requested-With": "XMLHttpRequest",
             "Referer": self._referer_url,
             "Referrer-Policy": "strict-origin-when-cross-origin",
         }
@@ -64,6 +65,9 @@ class SkyGrass(SearchAPI):
 
     @property
     def _is_login(self):
+        if self._cached_headers:
+            self._headers = self._cached_headers
+            return True
         is_login = False
         while not is_login and self.retry >= 0:
             resp = get(self._captcha_api, headers=self._headers)
@@ -90,6 +94,9 @@ class SkyGrass(SearchAPI):
         """搜索接口方法实现."""
         if not self._is_login:
             return False
+        else:
+            self._cached_headers = self._headers
+        self._add_extra_headers()
         data = {
             'sort': "weixin_id",
             "order": "desc",
@@ -101,7 +108,19 @@ class SkyGrass(SearchAPI):
         }
         resp = get(
             self._search_api,
-            data=urlencode(data),
+            params=urlencode(data),
             headers=self._headers,
         )
-        return resp
+        data: str = parse_resp_data(resp.fp)
+        data = self._process_data(data)
+        try:
+            return int(data["total"]) != 0
+        except Exception:
+            return False
+
+    def _process_data(self, data: str) -> dict:
+        try:
+            start, end = data.index('{'), data.index('}')
+            return json.loads(data[start: end + 1])
+        except Exception:
+            return {}
